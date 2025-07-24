@@ -82,6 +82,10 @@ public class GameController {
         }
     }
 
+    public GameStateInfo getGameStateInfo() {
+        return gameFlow.getGameStateInfo();
+    }
+
     private boolean everyPlayerReady() {
 
         boolean toRet = true;

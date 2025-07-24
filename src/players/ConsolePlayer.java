@@ -88,13 +88,13 @@ public class ConsolePlayer implements PlayerEvents, PlayerActions {
     public void onGameInit(GameStateInfo gameStateInfo) {
         setInformation(gameStateInfo);
         System.out.println("INICIAAAAAAAAAAAA");
-        displayGameState(); 
+        displayGameState();
     }
 
     @Override
     public void onAttachament(GameStateInfo gameStateInfo) {
         setInformation(gameStateInfo);
-        displayGameState(); 
+        displayGameState();
     }
 
     @Override
@@ -111,7 +111,7 @@ public class ConsolePlayer implements PlayerEvents, PlayerActions {
     @Override
     public void setGameController(GameController gameController) {
         this.gameController = gameController;
-        
+
         showMenu();
     }
 
@@ -175,86 +175,88 @@ public class ConsolePlayer implements PlayerEvents, PlayerActions {
     }
 
     public void showMenu() {
-        try  {
-               Scanner scanner = new Scanner(System.in);
+        try {
+            Scanner scanner = new Scanner(System.in);
 
-                System.out.println("╔══════════════════════════════╗");
-                System.out.println("║     Menú de Jugada Player " + numPlayer + "  ║");
-                System.out.println("╚══════════════════════════════╝");
-                System.out.println("1. Jugar carta");
-                System.out.println("2. Mover carta");
-                System.out.println("3. Gritar ¡Chin!");
-                System.out.println("4. Reanudar partida");
-                System.out.println("5. Ver información");
-                System.out.println("0. Pasar turno");
-                System.out.print("Elegí una opción: ");
+            System.out.println("╔══════════════════════════════╗");
+            System.out.println("║     Menú de Jugada Player " + numPlayer + "  ║");
+            System.out.println("╚══════════════════════════════╝");
+            System.out.println("1. Jugar carta");
+            System.out.println("2. Mover carta");
+            System.out.println("3. Gritar ¡Chin!");
+            System.out.println("4. Reanudar partida");
+            System.out.println("5. Ver información");
+            System.out.println("0. Pasar turno");
+            System.out.print("Elegí una opción: ");
 
-                int opcion = scanner.nextInt();
+            int opcion = scanner.nextInt();
 
-                switch (opcion) {
-                    case 1 -> {
-                        System.out.print("Elegí el índice de la carta de tu mano: ");
-                        int cardIndex = scanner.nextInt();
-                        if (cardIndex < 0 || cardIndex >= myHand.length) {
-                            System.out.println("Índice inválido.");
-                            break;
-                        }
-
-                        System.out.print("Elegí el índice del mazo donde la querés jugar: ");
-                        int deckIndex = scanner.nextInt();
-                        if (deckIndex < 0 || deckIndex >= playDecks.length) {
-                            System.out.println("Índice de mazo inválido.");
-                            break;
-                        }
-
-                        Card cardToPlay = myHand[cardIndex].getHandCard();
-                        LogicDeckContainer targetDeck = playDecks[deckIndex];
-                        requestPlayCard(cardToPlay, targetDeck);
+            switch (opcion) {
+                case 1 -> {
+                    System.out.print("Elegí el índice de la carta de tu mano: ");
+                    int cardIndex = scanner.nextInt();
+                    if (cardIndex < 0 || cardIndex >= myHand.length) {
+                        System.out.println("Índice inválido.");
+                        break;
                     }
 
-                    case 2 -> {
-                        System.out.print("Elegí el índice de la carta de tu mano: ");
-                        int cardIndex = scanner.nextInt();
-                        if (cardIndex < 0 || cardIndex >= myHand.length) {
-                            System.out.println("Índice inválido.");
-                            break;
-                        }
-
-                        System.out.print("Nueva posición X: ");
-                        int x = scanner.nextInt();
-                        System.out.print("Nueva posición Y: ");
-                        int y = scanner.nextInt();
-
-                        Card cardToMove = myHand[cardIndex].getHandCard();
-                        requestMoveCard(cardToMove, new Point(x, y));
+                    System.out.print("Elegí el índice del mazo donde la querés jugar: ");
+                    int deckIndex = scanner.nextInt();
+                    if (deckIndex < 0 || deckIndex >= playDecks.length) {
+                        System.out.println("Índice de mazo inválido.");
+                        break;
                     }
 
-                    case 3 -> requestChin();
-
-                    case 4 -> {
-                        if(!isReady){
-                            requestInitGame();
-                        } else{
-                            requestResume();
-                        }
-                    }
-
-                    case 5 -> displayGameState();
-
-                    case 0 -> {
-                        System.out.println("pasando");
-                        
-                    }
-
-                    default -> System.out.println("Opción inválida.");
+                    Card cardToPlay = myHand[cardIndex].getHandCard();
+                    LogicDeckContainer targetDeck = playDecks[deckIndex];
+                    requestPlayCard(cardToPlay, targetDeck);
                 }
 
-                System.out.println(); // Espacio entre acciones
-            
+                case 2 -> {
+                    System.out.print("Elegí el índice de la carta de tu mano: ");
+                    int cardIndex = scanner.nextInt();
+                    if (cardIndex < 0 || cardIndex >= myHand.length) {
+                        System.out.println("Índice inválido.");
+                        break;
+                    }
+
+                    System.out.print("Nueva posición X: ");
+                    int x = scanner.nextInt();
+                    System.out.print("Nueva posición Y: ");
+                    int y = scanner.nextInt();
+
+                    Card cardToMove = myHand[cardIndex].getHandCard();
+                    requestMoveCard(cardToMove, new Point(x, y));
+                }
+
+                case 3 -> requestChin();
+
+                case 4 -> {
+                    if (!isReady) {
+                        requestInitGame();
+                    } else {
+                        requestResume();
+                    }
+                }
+
+                case 5 -> displayGameState();
+
+                case 0 -> {
+                    System.out.println("pasando");
+
+                }
+
+                default -> {
+                    System.out.println("Opción inválida.");
+                    scanner.close();
+                }
+            }
+
+            System.out.println(); // Espacio entre acciones
+
         } catch (Exception e) {
             System.out.println("Error en la entrada: " + e.getMessage());
         }
     }
-
 
 }

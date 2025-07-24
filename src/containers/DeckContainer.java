@@ -8,12 +8,16 @@ import entity.Entity;
 
 public class DeckContainer extends Entity implements LogicDeckContainer {
     private GeneralDeck deck;
+    private final int id;
 
-    public DeckContainer(GeneralDeck deck) {
+    public DeckContainer(GeneralDeck deck, int id) {
         super();
         setLocation(new Point(0,0));
         this.deck = deck;
+        this.id = id;
     }
+
+    
 
     @Override
     public Card showTopCard() {
@@ -63,6 +67,23 @@ public class DeckContainer extends Entity implements LogicDeckContainer {
     @Override
     public int getDeckSize() {
         return deck.getSize();
+    }
+
+
+
+    @Override
+    public int getId() {
+       return id;
+    }
+
+    @Override 
+    public boolean equals(Object obj) {
+        boolean toRet = false;
+        if (this == obj) toRet = true;
+        if (!(obj instanceof DeckContainer)) toRet = false;
+        DeckContainer other = (DeckContainer) obj;
+        toRet = this.id == other.getId();
+        return toRet;
     }
 
 }

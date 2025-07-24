@@ -8,6 +8,7 @@ import containers.LogicDeckContainer;
 import containers.LogicHandContainer;
 import deck.*;
 import game.comunicationObjects.GameEvent;
+import game.comunicationObjects.GameStateInfo;
 
 public class GameFlow {
     private GameState state;
@@ -122,6 +123,10 @@ public class GameFlow {
         } else {
             return new GameEvent.NoEvent();
         }
+    }
+
+    public GameStateInfo getGameStateInfo() {
+        return state.getGameStateInfo();
     }
 
     // Auxiliary private methods

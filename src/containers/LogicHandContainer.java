@@ -11,4 +11,6 @@ public interface LogicHandContainer {
     public void disable();
     public Card getHandCard();
     public Point getLocation();
+    public int getId();
+    public boolean equals(Object obj);
 }

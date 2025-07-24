@@ -7,11 +7,13 @@ public class HandContainer extends Entity implements LogicHandContainer {
     private Card handCard;
     private LogicDeckContainer userDeck;
     public boolean isActive;
+    private final int id;
 
-    public HandContainer(LogicDeckContainer userDeck) {
+    public HandContainer(LogicDeckContainer userDeck, int id) {
         super();
         this.userDeck = userDeck;
         this.handCard = null;
+        this.id = id;
         this.isActive = false;
     }
 
@@ -42,6 +44,21 @@ public class HandContainer extends Entity implements LogicHandContainer {
     @Override
     public Card getHandCard() {
         return handCard;
+    }
+
+    @Override
+    public int getId() {
+       return id;
+    }
+
+    @Override 
+    public boolean equals(Object obj) {
+        boolean toRet = false;
+        if (this == obj) toRet = true;
+        if (!(obj instanceof HandContainer)) toRet = false;
+        HandContainer other = (HandContainer) obj;
+        toRet = this.id == other.getId();
+        return toRet;
     }
 
 }

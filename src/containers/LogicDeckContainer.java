@@ -11,4 +11,7 @@ public interface LogicDeckContainer {
     public Point getLocation();
     public boolean isDeckEmpty();
     public int getDeckSize();
+    public int getId();
+    public boolean equals(Object obj);
+    
 }
